@@ -17,14 +17,36 @@
 }
 
 html {
+  max-width: 100%;
+  overflow-x: clip;
   scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
+  max-width: 100%;
+  overflow-x: clip;
   background: var(--background);
   color: var(--foreground);
   font-family: "Inter", system-ui, sans-serif;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+.hero-readable,
+.hero-readable h1,
+.hero-readable p,
+.hero-readable span {
+  color: #fff;
+}
+
+.hero-readable .hero-cta-primary {
+  color: #161915;
 }
 
 ::selection {

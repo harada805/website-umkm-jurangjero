@@ -30,11 +30,14 @@ const facts = [
   { label: "Padukuhan", value: `${villageIdentity.rw}` }
 ];
 
+const featuredOrganizationMembers = organizationMembers.slice(0, 4);
+const remainingOrganizationMembers = organizationMembers.slice(4);
+
 export function VillageProfile() {
   const maxPopulation = Math.max(...hamlets.map((hamlet) => hamlet.population));
 
   return (
-    <section id="profil" className="bg-[#F7F5EF] px-5 py-20">
+    <section id="profil" className="bg-[#F7F5EF] px-4 py-14 sm:px-5 sm:py-20">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-10 lg:grid-cols-[0.86fr_1.14fr] lg:items-start">
           <Reveal>
@@ -132,16 +135,16 @@ export function VillageProfile() {
                 </a>
               </div>
 
-              <div className="mt-6 grid gap-3 sm:grid-cols-3">
+              <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
                 {facts.map((fact) => (
                   <div
                     key={fact.label}
-                    className="rounded-[8px] border border-stonewarm-200 bg-[#FAFAFA] p-4"
+                    className="rounded-[8px] border border-stonewarm-200 bg-[#FAFAFA] p-3 sm:p-4"
                   >
-                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-stonewarm-700">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-stonewarm-700 sm:text-xs sm:tracking-[0.16em]">
                       {fact.label}
                     </p>
-                    <p className="mt-2 font-heading text-2xl font-bold text-stonewarm-950">
+                    <p className="mt-2 font-heading text-lg font-bold text-stonewarm-950 sm:text-2xl">
                       {fact.value}
                     </p>
                   </div>
@@ -156,11 +159,11 @@ export function VillageProfile() {
                 <div className="mt-4 grid gap-3">
                   {hamlets.map((hamlet) => (
                     <div key={hamlet.id}>
-                      <div className="mb-1 flex items-center justify-between gap-3 text-sm">
+                      <div className="mb-1 flex flex-col gap-1 text-sm sm:flex-row sm:items-center sm:justify-between sm:gap-3">
                         <span className="font-semibold text-stonewarm-950">
                           {hamlet.name}
                         </span>
-                        <span className="text-stonewarm-700">
+                        <span className="text-xs text-stonewarm-700 sm:text-sm">
                           {formatNumber(hamlet.population)} jiwa - {hamlet.families} KK - {hamlet.rt} RT
                         </span>
                       </div>
@@ -268,56 +271,22 @@ export function VillageProfile() {
                 </h3>
               </div>
             </div>
-            <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-              {organizationMembers.map((member) => (
-                <div
-                  key={`${member.role}-${member.name}`}
-                  className="flex min-h-[220px] flex-col rounded-[8px] border border-stonewarm-200 bg-[#FAFAFA] p-4"
-                >
-                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-leaf-700">
-                    {member.role}
-                  </p>
-                  <p className="mt-2 font-heading text-lg font-bold text-stonewarm-950">
-                    {member.name}
-                  </p>
-                  <p className="mt-1 text-sm font-semibold text-stonewarm-700">
-                    {member.scope}
-                  </p>
-
-                  <div className="mt-4 grid gap-2 text-sm leading-6 text-stonewarm-700">
-                    {member.ttl ? (
-                      <p className="flex gap-2">
-                        <CalendarDays className="mt-0.5 shrink-0 text-leaf-800" size={16} />
-                        <span>{member.ttl}</span>
-                      </p>
-                    ) : null}
-                    {member.address ? (
-                      <p className="flex gap-2">
-                        <Home className="mt-0.5 shrink-0 text-leaf-800" size={16} />
-                        <span>{member.address}</span>
-                      </p>
-                    ) : null}
-                  </div>
-
-                  <div className="mt-auto pt-4">
-                    {member.phone && member.phone !== "-" ? (
-                      <a
-                        href={`tel:${member.phone.replace(/\D/g, "")}`}
-                        className="inline-flex w-full items-center justify-center gap-2 rounded-[8px] border border-leaf-800/20 bg-white px-3 py-2 text-sm font-bold text-leaf-800 hover:bg-leaf-100"
-                      >
-                        <Phone size={16} />
-                        {member.phone}
-                      </a>
-                    ) : (
-                      <span className="inline-flex w-full items-center justify-center gap-2 rounded-[8px] border border-stonewarm-200 bg-white px-3 py-2 text-sm font-bold text-stonewarm-600">
-                        <Phone size={16} />
-                        Belum tersedia
-                      </span>
-                    )}
-                  </div>
-                </div>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              {featuredOrganizationMembers.map((member) => (
+                <OrganizationCard key={`${member.role}-${member.name}`} member={member} />
               ))}
             </div>
+
+            <details className="mt-3 rounded-[8px] border border-stonewarm-200 bg-[#FAFAFA] p-3">
+              <summary className="cursor-pointer list-none rounded-[8px] bg-leaf-800 px-4 py-3 text-center text-sm font-bold text-white">
+                Lihat semua perangkat kalurahan
+              </summary>
+              <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                {remainingOrganizationMembers.map((member) => (
+                  <OrganizationCard key={`${member.role}-${member.name}`} member={member} />
+                ))}
+              </div>
+            </details>
             <p className="mt-4 text-xs leading-6 text-stonewarm-700">
               {villageIdentity.note}
             </p>
@@ -325,5 +294,57 @@ export function VillageProfile() {
         </Reveal>
       </div>
     </section>
+  );
+}
+
+function OrganizationCard({
+  member
+}: {
+  member: (typeof organizationMembers)[number];
+}) {
+  return (
+    <div className="flex flex-col rounded-[8px] border border-stonewarm-200 bg-[#FAFAFA] p-3 sm:min-h-[220px] sm:p-4">
+      <p className="text-xs font-bold uppercase tracking-[0.16em] text-leaf-700">
+        {member.role}
+      </p>
+      <p className="mt-2 font-heading text-base font-bold text-stonewarm-950 sm:text-lg">
+        {member.name}
+      </p>
+      <p className="mt-1 text-sm font-semibold text-stonewarm-700">
+        {member.scope}
+      </p>
+
+      <div className="mt-3 grid gap-2 text-sm leading-6 text-stonewarm-700 sm:mt-4">
+        {member.ttl ? (
+          <p className="flex gap-2">
+            <CalendarDays className="mt-0.5 shrink-0 text-leaf-800" size={16} />
+            <span>{member.ttl}</span>
+          </p>
+        ) : null}
+        {member.address ? (
+          <p className="flex gap-2">
+            <Home className="mt-0.5 shrink-0 text-leaf-800" size={16} />
+            <span>{member.address}</span>
+          </p>
+        ) : null}
+      </div>
+
+      <div className="mt-auto pt-3 sm:pt-4">
+        {member.phone && member.phone !== "-" ? (
+          <a
+            href={`tel:${member.phone.replace(/\D/g, "")}`}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-[8px] border border-leaf-800/20 bg-white px-3 py-2 text-sm font-bold text-leaf-800 hover:bg-leaf-100"
+          >
+            <Phone size={16} />
+            {member.phone}
+          </a>
+        ) : (
+          <span className="inline-flex w-full items-center justify-center gap-2 rounded-[8px] border border-stonewarm-200 bg-white px-3 py-2 text-sm font-bold text-stonewarm-600">
+            <Phone size={16} />
+            Belum tersedia
+          </span>
+        )}
+      </div>
+    </div>
   );
 }
