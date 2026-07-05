@@ -1,0 +1,88 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function adminPath() {
+      return /databases/$(database)/documents/admin_users/$(request.auth.uid);
+    }
+
+    function hasAdminProfile() {
+      return signedIn() && exists(adminPath());
+    }
+
+    function adminProfile() {
+      return get(adminPath()).data;
+    }
+
+    function activeAdmin() {
+      return hasAdminProfile() && adminProfile().status == "Aktif";
+    }
+
+    function hasRole(roles) {
+      return activeAdmin() && adminProfile().role in roles;
+    }
+
+    function superAdmin() {
+      return hasRole(["Super Admin"]);
+    }
+
+    match /admin_users/{userId} {
+      allow read: if activeAdmin();
+      allow create, update, delete: if superAdmin();
+    }
+
+    match /umkms/{umkmId} {
+      allow read: if true;
+      allow create, update, delete: if hasRole(["Super Admin", "Admin UMKM"]);
+    }
+
+    match /news/{newsId} {
+      allow read: if true;
+      allow create, update, delete: if hasRole(["Super Admin", "Admin Konten"]);
+    }
+
+    match /events/{eventId} {
+      allow read: if true;
+      allow create, update, delete: if hasRole(["Super Admin", "Admin Konten"]);
+    }
+
+    match /citizen_stories/{storyId} {
+      allow read: if true;
+      allow create, update, delete: if hasRole(["Super Admin", "Admin Konten"]);
+    }
+
+    match /tourism_spots/{spotId} {
+      allow read: if true;
+      allow create, update, delete: if hasRole(["Super Admin", "Admin Konten"]);
+    }
+
+    match /gallery_items/{itemId} {
+      allow read: if true;
+      allow create, update, delete: if hasRole(["Super Admin", "Admin Konten"]);
+    }
+
+    match /hamlets/{hamletId} {
+      allow read: if true;
+      allow create, update, delete: if superAdmin();
+    }
+
+    match /village_stats/{statId} {
+      allow read: if true;
+      allow create, update, delete: if superAdmin();
+    }
+
+    match /audit_logs/{logId} {
+      allow read: if superAdmin();
+      allow create: if activeAdmin();
+      allow update, delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
