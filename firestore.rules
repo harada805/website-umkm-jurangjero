@@ -32,7 +32,15 @@ service cloud.firestore {
 
     match /admin_users/{userId} {
       allow read: if activeAdmin();
-      allow create, update, delete: if superAdmin();
+      allow create: if superAdmin()
+        || (
+          signedIn()
+          && request.auth.uid == userId
+          && !exists(/databases/$(database)/documents/admin_users/$(userId))
+          && request.resource.data.role == "Super Admin"
+          && request.resource.data.status == "Aktif"
+        );
+      allow update, delete: if superAdmin();
     }
 
     match /umkms/{umkmId} {

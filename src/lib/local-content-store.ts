@@ -39,12 +39,16 @@ function readCollection<T>(key: LocalContentKey, fallback: T[]) {
 function writeCollection<T>(key: LocalContentKey, items: T[]) {
   if (!canUseBrowserStorage()) return;
 
-  window.localStorage.setItem(localContentKeys[key], JSON.stringify(items));
-  window.dispatchEvent(
-    new CustomEvent(localContentEvent, {
-      detail: { key }
-    })
-  );
+  try {
+    window.localStorage.setItem(localContentKeys[key], JSON.stringify(items));
+    window.dispatchEvent(
+      new CustomEvent(localContentEvent, {
+        detail: { key }
+      })
+    );
+  } catch (error) {
+    console.warn("Local content cache could not be written.", error);
+  }
 }
 
 export function subscribeLocalContent(

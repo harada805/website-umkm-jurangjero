@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import {
@@ -25,6 +26,7 @@ import {
   ShieldCheck,
   Store,
   Trash2,
+  UploadCloud,
   UserPlus,
   UsersRound
 } from "lucide-react";
@@ -77,6 +79,7 @@ import {
   saveLocalTourismSpots,
   saveLocalUmkms
 } from "@/lib/local-content-store";
+import { isStorageReady, uploadImageFile } from "@/lib/storage-service";
 import type {
   AdminRole,
   AdminUmkmRecord,
@@ -90,7 +93,7 @@ import type {
   TourismSpot,
   Umkm
 } from "@/lib/types";
-import { cn, formatNumber } from "@/lib/utils";
+import { cn, formatNumber, shouldUseUnoptimizedImage } from "@/lib/utils";
 
 const chartColors = ["#1B5E20", "#2E7D32", "#FFB300", "#8B6F3D", "#5C6B58"];
 
@@ -225,6 +228,7 @@ export function AdminDashboard() {
   const [adminUsers, setAdminUsers] = useState<AdminUser[]>(initialAdminUsers);
   const [userForm, setUserForm] = useState(emptyUserForm);
   const [currentAdminUid, setCurrentAdminUid] = useState<string | null>(null);
+  const [currentAdminEmail, setCurrentAdminEmail] = useState<string | null>(null);
   const [adminCitizenStories, setAdminCitizenStories] =
     useState<CitizenStoryRecord[]>(initialCitizenStories);
   const [citizenStoryForm, setCitizenStoryForm] = useState(emptyCitizenStoryForm);
@@ -257,6 +261,9 @@ export function AdminDashboard() {
   const currentAdmin = adminUsers.find(
     (user) => user.uid === currentAdminUid || user.id === currentAdminUid
   );
+  const needsAdminBootstrap = Boolean(
+    isFirestoreReady() && currentAdminUid && !currentAdmin
+  );
   const canManageUsers = !isFirestoreReady() || currentAdmin?.role === "Super Admin";
   const canManageStories =
     !isFirestoreReady() ||
@@ -273,6 +280,7 @@ export function AdminDashboard() {
 
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentAdminUid(user?.uid ?? null);
+      setCurrentAdminEmail(user?.email ?? null);
     });
 
     return () => unsubscribe();
@@ -380,6 +388,42 @@ export function AdminDashboard() {
         error instanceof Error
           ? `Database gagal menyimpan: ${error.message}. Perubahan tetap tersimpan lokal.`
           : "Database gagal menyimpan. Perubahan tetap tersimpan lokal."
+      );
+    } finally {
+      setDbBusy(false);
+    }
+  }
+
+  async function bootstrapCurrentAdmin() {
+    if (!currentAdminUid || !currentAdminEmail) {
+      setDbMessage("Login Firebase belum terbaca. Muat ulang halaman admin lalu coba lagi.");
+      return;
+    }
+
+    const nextUser: AdminUser = {
+      id: currentAdminUid,
+      uid: currentAdminUid,
+      name: currentAdminEmail.split("@")[0] || "Super Admin",
+      email: currentAdminEmail,
+      role: "Super Admin",
+      status: "Aktif",
+      passwordReady: true,
+      createdAt: new Date().toISOString().slice(0, 10)
+    };
+
+    try {
+      setDbBusy(true);
+      await saveAdminUser(nextUser);
+      setAdminUsers((current) => [
+        nextUser,
+        ...current.filter((item) => item.id !== nextUser.id)
+      ]);
+      setDbMessage("Akun ini sudah diaktifkan sebagai Super Admin.");
+    } catch (error) {
+      setDbMessage(
+        error instanceof Error
+          ? `Gagal mengaktifkan Super Admin: ${error.message}`
+          : "Gagal mengaktifkan Super Admin."
       );
     } finally {
       setDbBusy(false);
@@ -787,6 +831,35 @@ export function AdminDashboard() {
           </button>
         </div>
 
+        {needsAdminBootstrap ? (
+          <div className="mb-6 rounded-[8px] border border-amber-500/30 bg-amber-100 p-5 shadow-line">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-stonewarm-950">
+                  Aktivasi Admin Pertama
+                </p>
+                <h2 className="mt-2 font-heading text-2xl font-bold text-stonewarm-950">
+                  Akun ini belum punya role dashboard
+                </h2>
+                <p className="mt-2 max-w-3xl text-sm font-semibold leading-6 text-stonewarm-700">
+                  Klik tombol ini sekali untuk membuat profil Super Admin sesuai
+                  UID Firebase yang sedang login. Setelah aktif, fitur kelola
+                  konten dan upload akan mengikuti rules database.
+                </p>
+              </div>
+              <button
+                type="button"
+                disabled={dbBusy}
+                onClick={() => void bootstrapCurrentAdmin()}
+                className="inline-flex items-center justify-center gap-2 rounded-[8px] bg-leaf-800 px-5 py-3 text-sm font-bold text-white hover:bg-leaf-700 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                <ShieldCheck size={17} />
+                Aktifkan Super Admin
+              </button>
+            </div>
+          </div>
+        ) : null}
+
         <section className="grid gap-4 md:grid-cols-3 xl:grid-cols-6">
           <MetricCard label="UMKM Aktif" value={activeUmkm} icon={Store} />
           <MetricCard label="Produk Terdata" value={totalProducts} icon={Save} />
@@ -1079,6 +1152,8 @@ export function AdminDashboard() {
                   onChange={(value) =>
                     setProductPhotoForm((form) => ({ ...form, image: value }))
                   }
+                  folder={`produk-${productPhotoForm.umkmId || "umkm"}`}
+                  onStatus={setDbMessage}
                   required
                 />
               </div>
@@ -1187,6 +1262,8 @@ export function AdminDashboard() {
                   label="Foto Wisata"
                   value={tourismForm.image}
                   onChange={(value) => setTourismForm((form) => ({ ...form, image: value }))}
+                  folder="wisata"
+                  onStatus={setDbMessage}
                   required
                 />
               </div>
@@ -1265,6 +1342,8 @@ export function AdminDashboard() {
                   label="Foto Galeri"
                   value={galleryForm.src}
                   onChange={(value) => setGalleryForm((form) => ({ ...form, src: value }))}
+                  folder="galeri"
+                  onStatus={setDbMessage}
                   required
                 />
               </div>
@@ -1778,13 +1857,59 @@ function ImageInput({
   label,
   value,
   onChange,
+  folder,
+  onStatus,
   required
 }: {
   label: string;
   value: string;
   onChange: (value: string) => void;
+  folder: string;
+  onStatus: (message: string) => void;
   required?: boolean;
 }) {
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleFile(file: File) {
+    setError("");
+
+    if (!file.type.startsWith("image/")) {
+      setError("File harus berupa gambar.");
+      return;
+    }
+
+    try {
+      setUploading(true);
+
+      if (isStorageReady()) {
+        const url = await uploadImageFile(file, folder);
+        onChange(url);
+        onStatus("Upload gambar berhasil. URL Storage sudah masuk ke form.");
+        return;
+      }
+
+      if (file.size > 700 * 1024) {
+        throw new Error(
+          "Mode lokal hanya menerima gambar kecil. Untuk upload online, aktifkan Firebase Storage."
+        );
+      }
+
+      const dataUrl = await readImageFile(file);
+      onChange(dataUrl);
+      onStatus("Mode lokal: gambar dipakai sebagai pratinjau browser.");
+    } catch (uploadError) {
+      const message =
+        uploadError instanceof Error
+          ? uploadError.message
+          : "Upload gambar gagal.";
+      setError(message);
+      onStatus(`Upload gagal: ${message}`);
+    } finally {
+      setUploading(false);
+    }
+  }
+
   return (
     <label className="grid gap-2 text-sm font-bold text-stonewarm-950">
       {label}
@@ -1793,19 +1918,53 @@ function ImageInput({
         value={value}
         onChange={(event) => onChange(event.target.value)}
         required={required}
-        placeholder="URL gambar atau pilih file"
+        placeholder="URL gambar akan terisi otomatis setelah upload"
         className="h-11 rounded-[8px] border border-stonewarm-200 bg-white px-3 outline-none focus:border-leaf-700"
       />
-      <input
-        type="file"
-        accept="image/*"
-        onChange={(event) => {
-          const file = event.target.files?.[0];
-          if (!file) return;
-          void readImageFile(file).then(onChange);
-        }}
-        className="rounded-[8px] border border-stonewarm-200 bg-white px-3 py-2 text-sm font-semibold file:mr-3 file:rounded-[8px] file:border-0 file:bg-leaf-100 file:px-3 file:py-2 file:font-bold file:text-leaf-800"
-      />
+      <div className="grid gap-3 rounded-[8px] border border-dashed border-leaf-800/25 bg-white p-3 sm:grid-cols-[1fr_auto] sm:items-center">
+        <input
+          type="file"
+          accept="image/*"
+          disabled={uploading}
+          onChange={(event) => {
+            const file = event.target.files?.[0];
+            if (!file) return;
+            void handleFile(file);
+          }}
+          className="min-w-0 text-sm font-semibold file:mr-3 file:rounded-[8px] file:border-0 file:bg-leaf-100 file:px-3 file:py-2 file:font-bold file:text-leaf-800 disabled:cursor-not-allowed disabled:opacity-60"
+        />
+        <span className="inline-flex items-center justify-center gap-2 rounded-[8px] bg-leaf-100 px-3 py-2 text-xs font-bold text-leaf-800">
+          <UploadCloud size={15} />
+          {uploading
+            ? "Mengupload..."
+            : isStorageReady()
+              ? "Firebase Storage"
+              : "Mode lokal"}
+        </span>
+      </div>
+      {value ? (
+        <div className="relative h-44 overflow-hidden rounded-[8px] border border-stonewarm-200 bg-white">
+          <Image
+            src={value}
+            alt={`Preview ${label}`}
+            fill
+            unoptimized={shouldUseUnoptimizedImage(value)}
+            className="object-cover"
+            sizes="(min-width: 768px) 50vw, 100vw"
+          />
+        </div>
+      ) : null}
+      {error ? (
+        <p className="rounded-[8px] bg-amber-100 px-3 py-2 text-xs font-semibold leading-5 text-stonewarm-950">
+          {error}
+        </p>
+      ) : (
+        <p className="text-xs font-semibold leading-5 text-stonewarm-700">
+          {isStorageReady()
+            ? "File gambar akan diupload dan disimpan sebagai URL publik."
+            : "Firebase Storage belum aktif; gunakan URL gambar atau file kecil untuk preview lokal."}
+        </p>
+      )}
     </label>
   );
 }
