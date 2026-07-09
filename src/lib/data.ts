@@ -24,6 +24,16 @@ const alHusnaLollipop = "/images/umkm/al-husna-lollipop.jpeg";
 const alHusnaDisplay = "/images/umkm/al-husna-display.jpeg";
 const alHusnaRoundpop = "/images/umkm/al-husna-roundpop.jpeg";
 const alHusnaTray = "/images/umkm/al-husna-tray.jpeg";
+const rhiensCover = "/images/umkm/rhiens-cover.jpeg";
+const rhiensCookiesJar = "/images/umkm/rhiens-cookies-jar.jpeg";
+const rhiensBrownies = "/images/umkm/rhiens-brownies.jpeg";
+const rhiensCustomCake = "/images/umkm/rhiens-custom-cake.jpeg";
+const rhiensBoluKeju = "/images/umkm/rhiens-bolu-keju.jpeg";
+const citaPawonCover = "/images/umkm/cita-pawon-cover.jpeg";
+const citaPawonBrownies = "/images/umkm/cita-pawon-brownies.jpeg";
+const citaPawonAnekaKue = "/images/umkm/cita-pawon-aneka-kue.jpeg";
+const citaPawonFruitTart = "/images/umkm/cita-pawon-fruit-tart.jpeg";
+const citaPawonSnackPlatter = "/images/umkm/cita-pawon-snack-platter.jpeg";
 
 export const officialSources = {
   website: "https://desajurangjero.gunungkidulkab.go.id/",
@@ -152,7 +162,7 @@ export const hamlets: Hamlet[] = [
     rt: 12,
     male: 480,
     female: 479,
-    umkmCount: 1,
+    umkmCount: 3,
     tourismCount: 1,
     signature: "pusat administrasi kalurahan",
     summary:
@@ -198,6 +208,26 @@ export const hamlets: Hamlet[] = [
         y: 252,
         description:
           "Produk cokelat karakter, lollipop, dan hampers mini. Lokasi publik sudah diberi melalui Google Maps oleh pemilik data.",
+        status: "resmi"
+      },
+      {
+        id: "rhiens-cookies",
+        name: "Rhiens Cookies",
+        type: "UMKM",
+        x: 260,
+        y: 205,
+        description:
+          "Cookies toples, brownies, bolu, dan cake custom. Lokasi publik tersedia melalui Google Maps dari pemilik data.",
+        status: "resmi"
+      },
+      {
+        id: "cita-pawon",
+        name: "Cita Pawon",
+        type: "UMKM",
+        x: 306,
+        y: 272,
+        description:
+          "Aneka kue, snack tampah, brownies, dan hampers manis untuk acara keluarga maupun pesanan spesial.",
         status: "resmi"
       }
     ]
@@ -775,6 +805,247 @@ export const umkms: Umkm[] = [
         shortNote: "Tray untuk pesanan lebih banyak; cocok sebagai souvenir."
       }
     ]
+  },
+  {
+    id: "rhiens-cookies",
+    name: "Rhiens Cookies",
+    tagline: "Cookies toples, brownies, bolu, dan cake custom untuk hantaran yang rapi.",
+    category: "Kuliner",
+    rating: 0,
+    productCount: 5,
+    cover: rhiensCover,
+    story:
+      "Rhiens Cookies membawa nuansa bakery rumahan yang matang secara visual: cookies toples berlabel, brownies dalam box, bolu keju, dan cake custom untuk momen ulang tahun maupun hantaran keluarga.",
+    history:
+      "Rhiens Cookies tumbuh dari produksi kue rumahan yang fleksibel mengikuti kebutuhan pembeli. Kekuatan utamanya ada pada pilihan produk yang luas: camilan kering, dessert box, bolu, brownies, sampai cake dekoratif yang bisa dibuat sesuai tema acara.",
+    specialty: "Cookies toples dan cake custom",
+    bestFor: ["Hampers keluarga", "Ulang tahun", "Suguhan tamu", "Pesanan acara"],
+    highlights: [
+      "Foto produk kuat untuk katalog karena kemasan, label, dan variasi kue terlihat jelas.",
+      "Pilihan produk tidak monoton: ada cookies, brownies, bolu, dan cake custom.",
+      "Cocok untuk pembeli yang mencari kue siap hadiah atau suguhan acara."
+    ],
+    process: [
+      {
+        title: "Pilih kebutuhan",
+        text: "Pembeli menentukan jenis produk: cookies toples, brownies, bolu, atau cake custom."
+      },
+      {
+        title: "Konfirmasi tema",
+        text: "Untuk cake dan hantaran, detail tema, tulisan, ukuran, dan jadwal dibuat jelas sebelum produksi."
+      },
+      {
+        title: "Dikemas rapi",
+        text: "Produk masuk box, toples, atau kemasan hantaran agar siap diberikan atau disajikan."
+      }
+    ],
+    owner: "Rhiens Cookies",
+    ownerStory:
+      "Rhiens Cookies terasa kuat karena produknya siap masuk dua kebutuhan sekaligus: camilan harian dan pesanan acara. Dari toples cookies sampai cake personal, semuanya dibuat agar pembeli mudah memilih sesuai momen.",
+    whatsapp: "6281806633263",
+    hamletId: "jurangjero",
+    gallery: [
+      rhiensCover,
+      rhiensCookiesJar,
+      rhiensBrownies,
+      rhiensCustomCake,
+      rhiensBoluKeju
+    ],
+    locationNote:
+      "Lokasi Rhiens Cookies tersedia melalui Google Maps yang diberikan pemilik data. Untuk pesanan dan arahan titik yang paling akurat, pembeli dapat menghubungi WhatsApp terlebih dahulu.",
+    mapsUrl: "https://maps.app.goo.gl/gcRUeiE41S9vgevZ6",
+    verified: true,
+    sourceNote:
+      "Harga, ukuran, rasa, dan jadwal produksi Rhiens Cookies dikonfirmasi langsung melalui WhatsApp sebelum pemesanan.",
+    testimonials: [
+      {
+        name: "Pesanan Hantaran",
+        quote:
+          "Kemasan toples dan box membuat produknya siap dijadikan hantaran tanpa perlu banyak tambahan."
+      },
+      {
+        name: "Cake Custom",
+        quote:
+          "Pilihan cake dan brownies cocok untuk ulang tahun, syukuran, atau acara keluarga."
+      }
+    ],
+    products: [
+      {
+        id: "rhiens-cookies-toples",
+        umkmId: "rhiens-cookies",
+        name: "Cookies Toples Rhiens",
+        category: "Kuliner",
+        price: 0,
+        popularity: 96,
+        image: rhiensCookiesJar,
+        shortNote:
+          "Aneka cookies dalam toples berlabel, cocok untuk hampers dan suguhan tamu."
+      },
+      {
+        id: "rhiens-brownies-box",
+        umkmId: "rhiens-cookies",
+        name: "Brownies Box Topping",
+        category: "Kuliner",
+        price: 0,
+        popularity: 92,
+        image: rhiensBrownies,
+        shortNote:
+          "Brownies potong dengan topping almond, kacang, dan cokelat dalam kemasan box."
+      },
+      {
+        id: "rhiens-custom-cake",
+        umkmId: "rhiens-cookies",
+        name: "Cake Custom Tema Acara",
+        category: "Kuliner",
+        price: 0,
+        popularity: 90,
+        image: rhiensCustomCake,
+        shortNote:
+          "Cake dekoratif untuk ulang tahun, syukuran, atau hadiah personal."
+      },
+      {
+        id: "rhiens-bolu-keju",
+        umkmId: "rhiens-cookies",
+        name: "Bolu Keju",
+        category: "Kuliner",
+        price: 0,
+        popularity: 84,
+        image: rhiensBoluKeju,
+        shortNote:
+          "Bolu lembut dengan topping keju, tersedia utuh atau potong sesuai pesanan."
+      },
+      {
+        id: "rhiens-dessert-box",
+        umkmId: "rhiens-cookies",
+        name: "Dessert Box Rhiens",
+        category: "Kuliner",
+        price: 0,
+        popularity: 88,
+        image: rhiensCover,
+        shortNote:
+          "Dessert dalam box yang rapi untuk hadiah kecil, acara, dan pesanan keluarga."
+      }
+    ]
+  },
+  {
+    id: "cita-pawon",
+    name: "Cita Pawon",
+    tagline: "Aneka kue lezat untuk acara spesial, hampers, dan cemilan keluarga.",
+    category: "Kuliner",
+    rating: 0,
+    productCount: 5,
+    cover: citaPawonCover,
+    story:
+      "Cita Pawon bermain di wilayah rasa yang akrab: snack tampah, brownies, fruit tart, jajanan warna-warni, dan paket kue untuk acara keluarga. Tampilannya hangat, penuh warna, dan mudah dibayangkan sebagai suguhan meja.",
+    history:
+      "Cita Pawon hadir sebagai dapur pesanan yang menyiapkan aneka kue untuk kebutuhan spesial. Dari cemilan ringan sampai platter acara, produknya dirancang agar pembeli bisa memilih sajian yang praktis tanpa kehilangan rasa rumahan.",
+    specialty: "Snack platter dan aneka kue pesanan",
+    bestFor: ["Acara keluarga", "Hampers", "Rapat warga", "Cemilan rumah"],
+    highlights: [
+      "Snack platter tampil kuat sebagai produk utama karena terlihat penuh, rapi, dan siap acara.",
+      "Brownies dan fruit tart memberi pilihan manis yang lebih modern.",
+      "Aneka kue warna-warni membuat katalog terasa hidup dan ramah untuk pembeli HP."
+    ],
+    process: [
+      {
+        title: "Pilih paket",
+        text: "Pembeli dapat memilih snack platter, brownies, fruit tart, atau aneka kue sesuai kebutuhan."
+      },
+      {
+        title: "Sesuaikan jumlah",
+        text: "Jumlah porsi dan waktu pengambilan dikonfirmasi lewat WhatsApp agar produksi lebih tepat."
+      },
+      {
+        title: "Disiapkan untuk acara",
+        text: "Produk dikemas dalam tampah, box, atau wadah hantaran supaya siap disajikan."
+      }
+    ],
+    owner: "Cita Pawon",
+    ownerStory:
+      "Cita Pawon punya karakter hangat: produk yang terlihat dekat dengan acara keluarga, arisan, rapat kecil, dan hantaran. Kekuatan utamanya ada pada variasi, warna, dan format sajian yang langsung siap dipakai.",
+    whatsapp: "62895320372055",
+    hamletId: "jurangjero",
+    gallery: [
+      citaPawonCover,
+      citaPawonBrownies,
+      citaPawonAnekaKue,
+      citaPawonFruitTart,
+      citaPawonSnackPlatter
+    ],
+    locationNote:
+      "Lokasi detail Cita Pawon dapat dikonfirmasi langsung melalui WhatsApp saat pemesanan. Pesanan sebaiknya dikomunikasikan lebih awal agar jadwal produksi dan jumlah porsi bisa disiapkan.",
+    verified: true,
+    sourceNote:
+      "Harga, isi paket, dan jadwal produksi Cita Pawon menyesuaikan jenis pesanan. Konfirmasi detail melalui WhatsApp sebelum memesan.",
+    testimonials: [
+      {
+        name: "Suguhan Acara",
+        quote:
+          "Snack platter terlihat penuh dan rapi, cocok untuk acara keluarga atau rapat kecil."
+      },
+      {
+        name: "Hampers Manis",
+        quote:
+          "Fruit tart dan brownies membuat pilihan kue terasa lebih variatif dan cantik."
+      }
+    ],
+    products: [
+      {
+        id: "cita-pawon-snack-platter",
+        umkmId: "cita-pawon",
+        name: "Snack Platter Acara",
+        category: "Kuliner",
+        price: 0,
+        popularity: 94,
+        image: citaPawonCover,
+        shortNote:
+          "Susunan snack gurih dan manis dalam tampah, cocok untuk acara keluarga."
+      },
+      {
+        id: "cita-pawon-brownies",
+        umkmId: "cita-pawon",
+        name: "Brownies Topping",
+        category: "Kuliner",
+        price: 0,
+        popularity: 90,
+        image: citaPawonBrownies,
+        shortNote:
+          "Brownies potong dengan topping cokelat, almond, dan keju."
+      },
+      {
+        id: "cita-pawon-aneka-kue",
+        umkmId: "cita-pawon",
+        name: "Aneka Kue Warna-warni",
+        category: "Kuliner",
+        price: 0,
+        popularity: 86,
+        image: citaPawonAnekaKue,
+        shortNote:
+          "Pilihan kue manis berwarna untuk cemilan, hantaran, dan suguhan."
+      },
+      {
+        id: "cita-pawon-fruit-tart",
+        umkmId: "cita-pawon",
+        name: "Fruit Tart Hampers",
+        category: "Kuliner",
+        price: 0,
+        popularity: 88,
+        image: citaPawonFruitTart,
+        shortNote:
+          "Mini tart buah dalam wadah hantaran, tampil segar dan siap diberikan."
+      },
+      {
+        id: "cita-pawon-paket-cemilan",
+        umkmId: "cita-pawon",
+        name: "Paket Cemilan Cita Pawon",
+        category: "Kuliner",
+        price: 0,
+        popularity: 82,
+        image: citaPawonSnackPlatter,
+        shortNote:
+          "Paket cemilan untuk rapat, arisan, syukuran, atau kebutuhan keluarga."
+      }
+    ]
   }
 ];
 
@@ -910,10 +1181,10 @@ export const newsItems: NewsItem[] = [
   {
     id: "kurasi-umkm-ibu-pare-al-husna",
     type: "Pengumuman",
-    title: "Kurasi UMKM Ibu Pare dan Al Husna",
+    title: "Kurasi UMKM Kuliner Jurangjero",
     date: "2026-07-05",
     excerpt:
-      "Etalase UMKM diperbarui dengan foto produk, cerita usaha, katalog, kontak WhatsApp, dan titik peta yang mudah diakses."
+      "Etalase UMKM diperbarui dengan Ibu Pare, Al Husna, Rhiens Cookies, dan Cita Pawon lengkap dengan foto produk, katalog, WhatsApp, dan titik peta."
   }
 ];
 
@@ -921,8 +1192,12 @@ export const galleryItems: GalleryItem[] = [
   { id: "lanskap-jurangjero", src: heroCover, title: "Lanskap Jurangjero", type: "Lanskap" },
   { id: "keripik-tales-ibu-pare", src: ibuPareKeripikTales, title: "Keripik Tales Ibu Pare", type: "UMKM" },
   { id: "mini-box-al-husna", src: alHusnaCover, title: "Mini Box Al Husna", type: "UMKM" },
+  { id: "rhiens-cookies-toples", src: rhiensCookiesJar, title: "Cookies Toples Rhiens", type: "UMKM" },
+  { id: "cita-pawon-platter", src: citaPawonCover, title: "Snack Platter Cita Pawon", type: "UMKM" },
   { id: "aneka-jajanan-ibu-pare", src: ibuPareKueBasah, title: "Aneka Jajanan Ibu Pare", type: "Kuliner" },
   { id: "lollipop-karakter-al-husna", src: alHusnaLollipop, title: "Lollipop Karakter Al Husna", type: "Cokelat" },
+  { id: "rhiens-custom-cake", src: rhiensCustomCake, title: "Cake Custom Rhiens", type: "Bakery" },
+  { id: "cita-pawon-brownies", src: citaPawonBrownies, title: "Brownies Cita Pawon", type: "Kuliner" },
   { id: "potensi-budaya-alam", src: wisataCover, title: "Potensi Budaya dan Alam", type: "Wisata" },
   { id: "rute-padukuhan", src: wisataCover, title: "Rute Padukuhan", type: "Peta" }
 ];
