@@ -237,6 +237,12 @@ export function normalizePublicUmkm(item: StoredUmkm): Umkm {
   };
 }
 
+function mergeMissingDefaultUmkms(items: Umkm[]) {
+  const itemIds = new Set(items.map((item) => item.id));
+  const missingDefaults = umkms.filter((umkm) => !itemIds.has(umkm.id));
+  return [...items, ...missingDefaults];
+}
+
 async function listDocs<T extends { id: string }>(collectionName: string) {
   requireFirestore();
   const snapshot = await getDocs(collection(db, collectionName));
@@ -314,9 +320,11 @@ export async function listAdminUmkms() {
 
 export async function listPublicUmkms() {
   const items = await listDocs<StoredUmkm>(firestoreCollections.umkms);
-  return items
-    .filter((item) => item.status !== "Draft")
-    .map((item) => normalizePublicUmkm(item));
+  return mergeMissingDefaultUmkms(
+    items
+      .filter((item) => item.status !== "Draft")
+      .map((item) => normalizePublicUmkm(item))
+  );
 }
 
 export function subscribePublicUmkms(
@@ -327,9 +335,11 @@ export function subscribePublicUmkms(
     firestoreCollections.umkms,
     (items) => {
       onItems(
-        items
-          .filter((item) => item.status !== "Draft")
-          .map((item) => normalizePublicUmkm(item))
+        mergeMissingDefaultUmkms(
+          items
+            .filter((item) => item.status !== "Draft")
+            .map((item) => normalizePublicUmkm(item))
+        )
       );
     },
     onError
