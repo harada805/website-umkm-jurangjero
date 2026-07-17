@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Menu, Store, X } from "lucide-react";
 import { useState } from "react";
@@ -21,8 +22,15 @@ export function SiteNav() {
     <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5">
       <nav className="mx-auto flex max-w-7xl items-center justify-between rounded-[8px] border border-white/55 bg-white/88 px-4 py-3 shadow-line backdrop-blur-xl">
         <Link href="/" className="flex min-w-0 items-center gap-3">
-          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-[8px] bg-leaf-800 text-sm font-black text-white">
-            JJ
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-[8px] bg-white p-1 shadow-[inset_0_0_0_1px_rgba(68,64,60,0.18)]">
+            <Image
+              src="/images/logo-jurangjero.png"
+              alt="Logo Jurangjero"
+              width={42}
+              height={52}
+              priority
+              className="max-h-full w-auto object-contain"
+            />
           </span>
           <span className="min-w-0">
             <span className="block truncate font-heading text-sm font-bold text-stonewarm-950 sm:text-base">

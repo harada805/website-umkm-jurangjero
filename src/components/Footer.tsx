@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { MapPin } from "lucide-react";
 
 export function Footer() {
@@ -6,8 +7,14 @@ export function Footer() {
       <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[1.2fr_0.8fr_0.8fr]">
         <div>
           <div className="flex items-center gap-3">
-            <span className="grid h-11 w-11 place-items-center rounded-[8px] bg-amber-500 font-heading font-black text-stonewarm-950">
-              JJ
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-[8px] bg-white p-1">
+              <Image
+                src="/images/logo-jurangjero.png"
+                alt="Logo Jurangjero"
+                width={42}
+                height={52}
+                className="max-h-full w-auto object-contain"
+              />
             </span>
             <div>
               <p className="font-heading text-lg font-bold">Jurang Jero Digital</p>

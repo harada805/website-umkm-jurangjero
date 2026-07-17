@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { onAuthStateChanged, signOut, type User } from "firebase/auth";
@@ -98,8 +99,14 @@ export function AuthGate({ children }: { children: ReactNode }) {
       <header className="border-b border-stonewarm-200 bg-white px-5 py-4 shadow-line">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3">
-            <span className="grid h-10 w-10 place-items-center rounded-[8px] bg-leaf-800 font-heading font-black text-white">
-              JJ
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-[8px] bg-white p-1 shadow-[inset_0_0_0_1px_rgba(68,64,60,0.18)]">
+              <Image
+                src="/images/logo-jurangjero.png"
+                alt="Logo Jurangjero"
+                width={38}
+                height={48}
+                className="max-h-full w-auto object-contain"
+              />
             </span>
             <div>
               <p className="font-heading font-bold text-stonewarm-950">

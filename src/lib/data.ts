@@ -34,6 +34,12 @@ const citaPawonBrownies = "/images/umkm/cita-pawon-brownies.jpeg";
 const citaPawonAnekaKue = "/images/umkm/cita-pawon-aneka-kue.jpeg";
 const citaPawonFruitTart = "/images/umkm/cita-pawon-fruit-tart.jpeg";
 const citaPawonSnackPlatter = "/images/umkm/cita-pawon-snack-platter.jpeg";
+const kesetCover = "/images/umkm/keset/keset-cover.jpeg";
+const kesetMenjahit = "/images/umkm/keset/keset-menjahit.jpeg";
+const kesetProduksi = "/images/umkm/keset/keset-produksi.jpeg";
+const kesetJadi = "/images/umkm/keset/keset-jadi.jpeg";
+const kesetDetailBelakang = "/images/umkm/keset/keset-detail-belakang.jpeg";
+const kesetBahan = "/images/umkm/keset/keset-bahan.jpeg";
 
 export const officialSources = {
   website: "https://desajurangjero.gunungkidulkab.go.id/",
@@ -162,7 +168,7 @@ export const hamlets: Hamlet[] = [
     rt: 12,
     male: 480,
     female: 479,
-    umkmCount: 3,
+    umkmCount: 4,
     tourismCount: 1,
     signature: "pusat administrasi kalurahan",
     summary:
@@ -229,6 +235,16 @@ export const hamlets: Hamlet[] = [
         description:
           "Aneka kue, snack tampah, brownies, dan hampers manis untuk acara keluarga maupun pesanan spesial.",
         status: "resmi"
+      },
+      {
+        id: "keset-kain-jurangjero",
+        name: "UMKM Keset Kain Jurangjero",
+        type: "UMKM",
+        x: 208,
+        y: 196,
+        description:
+          "Kerajinan keset kain yang dibuat dengan mesin jahit, pola berlapis, dan pilihan warna pesanan.",
+        status: "perlu-verifikasi"
       }
     ]
   },
@@ -1046,6 +1062,120 @@ export const umkms: Umkm[] = [
           "Paket cemilan untuk rapat, arisan, syukuran, atau kebutuhan keluarga."
       }
     ]
+  },
+  {
+    id: "keset-kain-jurangjero",
+    name: "UMKM Keset Kain Jurangjero",
+    tagline: "Keset kain jahit dengan motif rapi, kuat, dan dibuat langsung di rumah produksi.",
+    category: "Kerajinan",
+    rating: 0,
+    productCount: 4,
+    cover: kesetCover,
+    story:
+      "Dari ruang kerja sederhana, usaha keset kain ini memperlihatkan proses yang dekat dan nyata: kain dipotong, pola disusun, pinggiran dirapikan, lalu setiap bagian dijahit satu per satu sampai menjadi keset yang siap dipakai di rumah.",
+    history:
+      "UMKM keset kain Jurangjero tumbuh dari keterampilan menjahit dan pemanfaatan bahan kain menjadi produk rumah tangga. Dokumentasi produksi menunjukkan pemilik mengerjakan detail keset langsung di mesin jahit, mulai dari susunan warna, lapisan alas, sampai rumbai tepi yang menjadi ciri visual produknya.",
+    specialty: "Keset kain oval jahit",
+    bestFor: ["Rumah tangga", "Pesanan warna", "Hadiah praktis", "Stok toko kecil"],
+    highlights: [
+      "Foto proses menjahit membuat cerita usaha terasa kuat dan bisa dipercaya.",
+      "Produk punya bentuk oval, lapisan bertekstur, dan kombinasi warna yang mudah dikenali.",
+      "Cocok untuk kebutuhan harian rumah, pesanan warna tertentu, maupun stok jualan kecil."
+    ],
+    process: [
+      {
+        title: "Bahan dipilih",
+        text: "Kain dan bahan alas disiapkan lalu dipilah sesuai warna, tekstur, dan kebutuhan pesanan."
+      },
+      {
+        title: "Pola disusun",
+        text: "Bentuk oval, lapisan dasar, dan susunan rumbai tepi ditata sebelum masuk ke proses jahit."
+      },
+      {
+        title: "Dijahit bertahap",
+        text: "Setiap bagian dirapikan di mesin jahit agar bentuk keset kuat dan nyaman dipakai."
+      },
+      {
+        title: "Produk siap jual",
+        text: "Keset yang selesai ditumpuk, dicek bentuknya, lalu disiapkan untuk pembeli atau pesanan berikutnya."
+      }
+    ],
+    owner: "Bapak Pengrajin Keset Jurangjero",
+    ownerStory:
+      "Nilai utama usaha ini ada pada ketekunan tangan pemiliknya. Foto bapak saat memegang keset dan menjahit memperlihatkan bahwa produk dibuat langsung, bukan sekadar barang titipan. Detail kecil seperti rumbai, pola warna, dan jahitan tepi menjadi bagian dari karakter produknya.",
+    whatsapp: "",
+    hamletId: "jurangjero",
+    gallery: [
+      kesetCover,
+      kesetMenjahit,
+      kesetProduksi,
+      kesetJadi,
+      kesetDetailBelakang,
+      kesetBahan
+    ],
+    locationNote:
+      "Usaha keset kain ini terdokumentasi di wilayah Jurangjero. Nomor pemesanan dan alamat detail belum ditambahkan, sehingga pembeli perlu menghubungi admin desa atau pengelola data UMKM untuk konfirmasi lanjutan.",
+    verified: false,
+    sourceNote:
+      "Foto dan cerita disusun dari dokumentasi lapangan 4 Juli 2026. Harga, ukuran, warna, dan kontak pemesanan perlu dilengkapi oleh admin sebelum publikasi transaksi penuh.",
+    testimonials: [
+      {
+        name: "Produk Rumah Tangga",
+        quote:
+          "Keset kain seperti ini mudah dipakai untuk kebutuhan harian karena bentuknya sederhana dan fungsional."
+      },
+      {
+        name: "Kerajinan Jahit",
+        quote:
+          "Proses menjahit langsung memberi nilai lebih karena pembeli bisa melihat kerja tangan di balik produknya."
+      }
+    ],
+    products: [
+      {
+        id: "keset-oval-ruffle",
+        umkmId: "keset-kain-jurangjero",
+        name: "Keset Oval Ruffle",
+        category: "Kerajinan",
+        price: 0,
+        popularity: 91,
+        image: kesetJadi,
+        shortNote:
+          "Keset oval dengan tepi berumbai dan kombinasi warna yang cocok untuk area rumah."
+      },
+      {
+        id: "keset-motif-kain-perca",
+        umkmId: "keset-kain-jurangjero",
+        name: "Keset Motif Kain Perca",
+        category: "Kerajinan",
+        price: 0,
+        popularity: 88,
+        image: kesetDetailBelakang,
+        shortNote:
+          "Lapisan bawah memakai susunan kain bermotif, memberi karakter berbeda pada tiap keset."
+      },
+      {
+        id: "keset-jahit-pesanan",
+        umkmId: "keset-kain-jurangjero",
+        name: "Keset Jahit Pesanan",
+        category: "Kerajinan",
+        price: 0,
+        popularity: 86,
+        image: kesetMenjahit,
+        shortNote:
+          "Dikerjakan langsung di mesin jahit, cocok untuk pesanan bentuk dan warna tertentu."
+      },
+      {
+        id: "keset-warna-custom",
+        umkmId: "keset-kain-jurangjero",
+        name: "Keset Warna Custom",
+        category: "Kerajinan",
+        price: 0,
+        popularity: 84,
+        image: kesetCover,
+        shortNote:
+          "Pilihan warna dan tepi keset dapat disesuaikan mengikuti bahan yang tersedia."
+      }
+    ]
   }
 ];
 
@@ -1181,10 +1311,10 @@ export const newsItems: NewsItem[] = [
   {
     id: "kurasi-umkm-ibu-pare-al-husna",
     type: "Pengumuman",
-    title: "Kurasi UMKM Kuliner Jurangjero",
+    title: "Kurasi UMKM Jurangjero",
     date: "2026-07-05",
     excerpt:
-      "Etalase UMKM diperbarui dengan Ibu Pare, Al Husna, Rhiens Cookies, dan Cita Pawon lengkap dengan foto produk, katalog, WhatsApp, dan titik peta."
+      "Etalase UMKM diperbarui dengan usaha kuliner dan kerajinan keset kain lengkap dengan foto produk, katalog, cerita pemilik, dan titik peta."
   }
 ];
 
@@ -1194,6 +1324,7 @@ export const galleryItems: GalleryItem[] = [
   { id: "mini-box-al-husna", src: alHusnaCover, title: "Mini Box Al Husna", type: "UMKM" },
   { id: "rhiens-cookies-toples", src: rhiensCookiesJar, title: "Cookies Toples Rhiens", type: "UMKM" },
   { id: "cita-pawon-platter", src: citaPawonCover, title: "Snack Platter Cita Pawon", type: "UMKM" },
+  { id: "keset-kain-jurangjero", src: kesetCover, title: "Keset Kain Jurangjero", type: "Kerajinan" },
   { id: "aneka-jajanan-ibu-pare", src: ibuPareKueBasah, title: "Aneka Jajanan Ibu Pare", type: "Kuliner" },
   { id: "lollipop-karakter-al-husna", src: alHusnaLollipop, title: "Lollipop Karakter Al Husna", type: "Cokelat" },
   { id: "rhiens-custom-cake", src: rhiensCustomCake, title: "Cake Custom Rhiens", type: "Bakery" },
