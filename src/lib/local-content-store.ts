@@ -36,6 +36,12 @@ function readCollection<T>(key: LocalContentKey, fallback: T[]) {
   }
 }
 
+function mergeMissingDefaultItems<T extends { id: string }>(fallback: T[], stored: T[]) {
+  const storedIds = new Set(stored.map((item) => item.id));
+  const missingDefaults = fallback.filter((item) => !storedIds.has(item.id));
+  return [...stored, ...missingDefaults];
+}
+
 function writeCollection<T>(key: LocalContentKey, items: T[]) {
   if (!canUseBrowserStorage()) return;
 
@@ -85,7 +91,7 @@ export function subscribeLocalContent(
 }
 
 export function readLocalUmkms(fallback: Umkm[]) {
-  return readCollection<Umkm>("umkms", fallback);
+  return mergeMissingDefaultItems(fallback, readCollection<Umkm>("umkms", fallback));
 }
 
 export function saveLocalUmkms(items: Umkm[]) {
