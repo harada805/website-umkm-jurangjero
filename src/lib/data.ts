@@ -41,6 +41,18 @@ const kesetJadi = "/images/umkm/keset/keset-jadi.jpeg";
 const kesetDetailBelakang = "/images/umkm/keset/keset-detail-belakang.jpeg";
 const kesetBahan = "/images/umkm/keset/keset-bahan.jpeg";
 const rapatKalurahan = "/images/gallery/rapat-kalurahan.jpeg";
+const kknDiskusiPosko = "/images/gallery/kkn/kkn-diskusi-posko.jpeg";
+const kknPendampinganAnak = "/images/gallery/kkn/kkn-pendampingan-anak.jpeg";
+const kknBimbinganBelajarJuli = "/images/gallery/kkn/kkn-bimbingan-belajar-juli.jpeg";
+const kknKunjunganRumah = "/images/gallery/kkn/kkn-kunjungan-rumah.jpeg";
+const kknEdukasiSdnVideo = "/images/gallery/kkn/kkn-edukasi-sdn-video.jpeg";
+const kknAktivitasInteraktifSdn = "/images/gallery/kkn/kkn-aktivitas-interaktif-sdn.jpeg";
+const kknPresentasiSdn = "/images/gallery/kkn/kkn-presentasi-sdn.jpeg";
+const kknSosialisasiSdn = "/images/gallery/kkn/kkn-sosialisasi-sdn.jpeg";
+const kknBelajarKelompokSdn = "/images/gallery/kkn/kkn-belajar-kelompok-sdn.jpeg";
+const kknKerjaKelompokSiswa = "/images/gallery/kkn/kkn-kerja-kelompok-siswa.jpeg";
+const kknKepemimpinanSmp = "/images/gallery/kkn/kkn-kepemimpinan-smp.jpeg";
+const kknPendampinganSmp = "/images/gallery/kkn/kkn-pendampingan-smp.jpeg";
 
 export const officialSources = {
   website: "https://desajurangjero.gunungkidulkab.go.id/",
@@ -1321,6 +1333,18 @@ export const newsItems: NewsItem[] = [
 
 export const galleryItems: GalleryItem[] = [
   { id: "rapat-warga-kalurahan", src: rapatKalurahan, title: "Rapat Warga Kalurahan", type: "Kegiatan" },
+  { id: "kkn-diskusi-posko", src: kknDiskusiPosko, title: "Diskusi Posko KKN", type: "Kegiatan" },
+  { id: "kkn-pendampingan-anak", src: kknPendampinganAnak, title: "Pendampingan Belajar Anak", type: "Pendidikan" },
+  { id: "kkn-bimbingan-belajar-juli", src: kknBimbinganBelajarJuli, title: "Bimbingan Belajar Anak", type: "Pendidikan" },
+  { id: "kkn-kunjungan-rumah", src: kknKunjunganRumah, title: "Kunjungan dan Pendataan Warga", type: "Kegiatan" },
+  { id: "kkn-edukasi-sdn-video", src: kknEdukasiSdnVideo, title: "Edukasi Siswa SDN Jurangjero", type: "Pendidikan" },
+  { id: "kkn-aktivitas-interaktif-sdn", src: kknAktivitasInteraktifSdn, title: "Aktivitas Belajar Interaktif", type: "Pendidikan" },
+  { id: "kkn-presentasi-sdn", src: kknPresentasiSdn, title: "Presentasi Kelas SDN Jurangjero", type: "Pendidikan" },
+  { id: "kkn-sosialisasi-sdn", src: kknSosialisasiSdn, title: "Sosialisasi Siswa SDN Jurangjero", type: "Pendidikan" },
+  { id: "kkn-belajar-kelompok-sdn", src: kknBelajarKelompokSdn, title: "Belajar Kelompok Siswa", type: "Pendidikan" },
+  { id: "kkn-kerja-kelompok-siswa", src: kknKerjaKelompokSiswa, title: "Kerja Kelompok Siswa", type: "Pendidikan" },
+  { id: "kkn-kepemimpinan-smp", src: kknKepemimpinanSmp, title: "Materi Kepemimpinan SMPN 5 Ngawen", type: "Pendidikan" },
+  { id: "kkn-pendampingan-smp", src: kknPendampinganSmp, title: "Pendampingan Siswa SMPN 5 Ngawen", type: "Pendidikan" },
   { id: "lanskap-jurangjero", src: heroCover, title: "Lanskap Jurangjero", type: "Lanskap" },
   { id: "keripik-tales-ibu-pare", src: ibuPareKeripikTales, title: "Keripik Tales Ibu Pare", type: "UMKM" },
   { id: "mini-box-al-husna", src: alHusnaCover, title: "Mini Box Al Husna", type: "UMKM" },
