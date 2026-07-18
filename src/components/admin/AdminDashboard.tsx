@@ -17,6 +17,8 @@ import {
 } from "recharts";
 import {
   CalendarPlus,
+  Check,
+  Copy,
   Edit3,
   KeyRound,
   Megaphone,
@@ -1870,6 +1872,27 @@ function ImageInput({
 }) {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
+  const isDataUrl = value.startsWith("data:");
+  const isPublicPath = value.startsWith("/") || value.startsWith("http");
+  const urlStatus = isDataUrl
+    ? "Mode lokal: bukan URL publik"
+    : isPublicPath
+      ? "URL/path gambar siap dipakai"
+      : "Belum ada URL gambar";
+
+  async function copyCurrentValue() {
+    if (!value) return;
+
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      onStatus("URL gambar sudah disalin.");
+      window.setTimeout(() => setCopied(false), 1400);
+    } catch {
+      onStatus("URL gambar belum bisa disalin otomatis. Salin manual dari kolom URL.");
+    }
+  }
 
   async function handleFile(file: File) {
     setError("");
@@ -1952,6 +1975,26 @@ function ImageInput({
             className="object-cover"
             sizes="(min-width: 768px) 50vw, 100vw"
           />
+        </div>
+      ) : null}
+      {value ? (
+        <div className="grid gap-2 rounded-[8px] border border-stonewarm-200 bg-white p-3">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-xs font-bold text-stonewarm-950">{urlStatus}</p>
+            <button
+              type="button"
+              onClick={copyCurrentValue}
+              className="inline-flex h-9 items-center justify-center gap-2 rounded-[8px] bg-stonewarm-950 px-3 text-xs font-bold text-white hover:bg-stonewarm-800"
+            >
+              {copied ? <Check size={14} /> : <Copy size={14} />}
+              {copied ? "Tersalin" : "Salin URL"}
+            </button>
+          </div>
+          <p className="truncate rounded-[8px] bg-stonewarm-100 px-3 py-2 text-xs font-semibold text-stonewarm-700">
+            {isDataUrl
+              ? "Firebase Storage belum aktif di runtime ini, jadi file hanya menjadi data preview lokal."
+              : value}
+          </p>
         </div>
       ) : null}
       {error ? (

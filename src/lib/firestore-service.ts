@@ -243,6 +243,12 @@ function mergeMissingDefaultUmkms(items: Umkm[]) {
   return [...items, ...missingDefaults];
 }
 
+function mergeMissingDefaultGalleryItems(items: GalleryItem[]) {
+  const itemIds = new Set(items.map((item) => item.id));
+  const missingDefaults = galleryItems.filter((item) => !itemIds.has(item.id));
+  return [...items, ...missingDefaults];
+}
+
 async function listDocs<T extends { id: string }>(collectionName: string) {
   requireFirestore();
   const snapshot = await getDocs(collection(db, collectionName));
@@ -438,7 +444,8 @@ export async function saveTourismSpot(spot: TourismSpot) {
 }
 
 export async function listGalleryItems() {
-  return listDocs<GalleryItem>(firestoreCollections.galleryItems);
+  const items = await listDocs<GalleryItem>(firestoreCollections.galleryItems);
+  return mergeMissingDefaultGalleryItems(items);
 }
 
 export function subscribeGalleryItems(
@@ -447,7 +454,7 @@ export function subscribeGalleryItems(
 ) {
   return subscribeDocs<GalleryItem>(
     firestoreCollections.galleryItems,
-    onItems,
+    (items) => onItems(mergeMissingDefaultGalleryItems(items)),
     onError
   );
 }

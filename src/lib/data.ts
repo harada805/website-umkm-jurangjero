@@ -40,6 +40,7 @@ const kesetProduksi = "/images/umkm/keset/keset-produksi.jpeg";
 const kesetJadi = "/images/umkm/keset/keset-jadi.jpeg";
 const kesetDetailBelakang = "/images/umkm/keset/keset-detail-belakang.jpeg";
 const kesetBahan = "/images/umkm/keset/keset-bahan.jpeg";
+const rapatKalurahan = "/images/gallery/rapat-kalurahan.jpeg";
 
 export const officialSources = {
   website: "https://desajurangjero.gunungkidulkab.go.id/",
@@ -1319,6 +1320,7 @@ export const newsItems: NewsItem[] = [
 ];
 
 export const galleryItems: GalleryItem[] = [
+  { id: "rapat-warga-kalurahan", src: rapatKalurahan, title: "Rapat Warga Kalurahan", type: "Kegiatan" },
   { id: "lanskap-jurangjero", src: heroCover, title: "Lanskap Jurangjero", type: "Lanskap" },
   { id: "keripik-tales-ibu-pare", src: ibuPareKeripikTales, title: "Keripik Tales Ibu Pare", type: "UMKM" },
   { id: "mini-box-al-husna", src: alHusnaCover, title: "Mini Box Al Husna", type: "UMKM" },

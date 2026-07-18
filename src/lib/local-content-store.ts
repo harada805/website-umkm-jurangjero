@@ -123,7 +123,10 @@ export function saveLocalTourismSpots(items: TourismSpot[]) {
 }
 
 export function readLocalGalleryItems(fallback: GalleryItem[]) {
-  return readCollection<GalleryItem>("galleryItems", fallback);
+  return mergeMissingDefaultItems(
+    fallback,
+    readCollection<GalleryItem>("galleryItems", fallback)
+  );
 }
 
 export function saveLocalGalleryItems(items: GalleryItem[]) {
